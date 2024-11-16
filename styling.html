@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        #posts {
+            display: grid;
+            box-sizing: content-box;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px 10px;
+            max-height: 70vh;
+            overflow: scroll;
+            margin: 10px;
+        }
+
+        .post {
+            border: dashed rgb(76, 76, 76);
+            padding: 15px;
+            border-radius: 10px;
+            background-color: aliceblue;
+            height: fit-content;
+            max-height: 600px;
+            transition: all .3s linear;
+            z-index: 1;
+        }
+
+        .post:hover {
+            cursor: pointer;
+            box-shadow: gray 0px 12px 20px 20px;
+            z-index: 2;
+        }
+
+        .post:not(:hover) {
+            opacity: 0.7;
+        }
+
+        .post-img {
+            display: flex;
+            justify-content: center;
+        }
+
+        .post-img > img {
+            max-height: 300px;
+            border-radius: 10px;
+        }
+
+        .post-description {
+            display: block;
+            margin: 40px 0;
+            max-height: 100px;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+                    line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        .post-author {
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function addPost() {
+            const images = [
+                "https://www.shutterstock.com/image-photo/happy-puppy-welsh-corgi-14-600nw-2270841247.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiE26ff46aKpfHCPy88HJkziodR9zd2jFhlg&s",
+                "https://i.pinimg.com/736x/2d/15/74/2d157475da3f359c2bfcd10875aaa872.jpg"
+            ];
+
+            const postSection = document.getElementById("posts");
+
+            const postsCount = postSection.children.length;
+            const newPostCount = postsCount + 1;
+
+            function createElementWithClass(tag, className, parent) {
+                const element = document.createElement(tag);
+                element.classList.add(className);
+                parent.appendChild(element);
+                return element;
+            }
+
+            const article = createElementWithClass("article", "post", postSection);
+
+            const postTitle = createElementWithClass("h2", "post-title", article);
+            postTitle.innerText = `Post title ${newPostCount}`;
+
+            const postInfo = createElementWithClass("div", "post-info", article);
+
+            const postImgWrapper = createElementWithClass("div", "post-img", postInfo);
+
+            const img = createElementWithClass("img", "img", postImgWrapper);
+            const imgIndex = Math.floor(Math.random() * images.length);
+            img.setAttribute("src", images[imgIndex]);
+            img.setAttribute("alt", images[imgIndex]);
+
+            const postDescription = createElementWithClass("div", "post-description", postInfo);
+            postDescription.innerText = Array(200).fill("lorem").join(" ");
+
+            const link = createElementWithClass("a", "post-link", postInfo);
+            link.setAttribute("href", "");
+            link.innerText = `Link to post ${newPostCount}`;
+
+            const postAuthor = createElementWithClass("div", "post-author", postInfo);
+            postAuthor.innerText = `by author ${newPostCount}`;
+        }
+    </script>
+    <main>
+        <h1>
+            Posts
+        </h1>
+        <button onclick="addPost()">
+            Add post
+        </button>
+        <section class="posts" id="posts">
+            <article class="post">
+                <h2 class="post-title">
+                    Post title 1
+                </h2>
+                <div class="post-info">
+                    <div class="post-img">
+                        <img 
+                            src="https://www.shutterstock.com/image-photo/happy-puppy-welsh-corgi-14-600nw-2270841247.jpg" 
+                            alt="cute corgy"
+                        >
+                    </div>
+                    <div class="post-description">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat ducimus facere dignissimos ipsa impedit laudantium iusto ab ea commodi error nemo atque placeat, a dolor sed nesciunt unde, quasi velit sapiente quod! Mollitia, voluptatum! Maiores, voluptatibus laboriosam? Adipisci voluptatibus possimus est dolores sunt tempora fuga nisi sequi neque porro aliquid velit nihil laborum qui vitae numquam perspiciatis quod, incidunt aut maxime magni optio ratione! Blanditiis odit ullam, repellendus nostrum facere aliquam cupiditate ut perspiciatis enim impedit maxime aspernatur doloremque maiores quo atque neque possimus eligendi incidunt nesciunt. Neque perferendis nihil, magni ab debitis consequatur nobis, adipisci minima harum nesciunt deserunt?
+                    </div>
+                    <a href="#" class="post-link">
+                        Link to post 1
+                    </a>
+                    <div class="post-author">
+                        by author 1
+                    </div>
+                </div>
+            </article>
+            <article class="post">
+                <h2 class="post-title">
+                    Post title 2
+                </h2>
+                <div class="post-info">
+                    <div class="post-img">
+                        <img 
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiE26ff46aKpfHCPy88HJkziodR9zd2jFhlg&s" 
+                            alt="cute kitty"
+                        >
+                    </div>
+                    <div class="post-description">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem laborum, quod velit modi accusantium accusamus assumenda alias voluptatibus perspiciatis? Exercitationem quas officia minus saepe. Fuga rem magni iure nam aut quae voluptate voluptas nostrum veritatis! Quas corrupti tempore, maxime recusandae praesentium autem cumque. Recusandae, accusantium. Explicabo quas et animi iusto voluptatum error ipsum veniam voluptate assumenda, suscipit ullam distinctio cum quae consequuntur, doloremque debitis qui corrupti, optio autem voluptates hic. Amet labore expedita ipsum delectus, voluptas quod similique commodi minus esse voluptatibus reprehenderit modi nulla. Sapiente dignissimos nihil odit. Laboriosam exercitationem nostrum saepe cum, est repellat? Necessitatibus deleniti odio in veniam ipsam alias delectus ex ut, omnis aut expedita sapiente error aspernatur natus distinctio animi, iste eaque itaque fuga consequatur doloremque. Ab perferendis repudiandae earum quo eum? Fuga veniam minus ipsam vitae commodi dicta adipisci similique dolore, rerum neque, placeat omnis harum nisi exercitationem recusandae nulla debitis! Veritatis at qui praesentium optio! Animi beatae deserunt adipisci magnam vel eaque, maiores explicabo quidem voluptatem asperiores ut accusantium inventore officiis sequi est nihil corporis rem culpa. Repellat culpa, amet quis quibusdam in rerum eos fugit earum, distinctio sapiente vitae dignissimos quam, modi possimus beatae! Perferendis, ex! Repudiandae ut nulla obcaecati reprehenderit natus.
+                    </div>
+                    <a href="#" class="post-link">
+                        Link to post 2
+                    </a>
+                    <div class="post-author">
+                        by author 2
+                    </div>
+                </div>
+            </article>
+            <article class="post">
+                <h2 class="post-title">
+                    Post title 3
+                </h2>
+                <div class="post-info">
+                    <div class="post-img">
+                        <img 
+                            src="https://i.pinimg.com/736x/2d/15/74/2d157475da3f359c2bfcd10875aaa872.jpg" 
+                            alt="cute rabbit"
+                        >
+                    </div>
+                    <div class="post-description">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, nobis fuga exercitationem perspiciatis modi voluptatibus iusto ipsum distinctio voluptas odio harum suscipit maiores numquam perferendis libero accusantium accusamus illo sunt amet vel! Excepturi quod assumenda consequuntur neque quae pariatur quidem accusamus dolor perferendis, ut cupiditate maxime sapiente nisi laboriosam animi facilis nihil vero est quasi atque hic aliquid quia ad ea! Maiores sed ducimus maxime beatae vitae esse quia, expedita quam fuga consequuntur, laboriosam dolorem unde reiciendis asperiores necessitatibus. Aut non voluptatum facilis eos deserunt nulla dolores, numquam alias officiis facere culpa nostrum dicta accusamus explicabo quo distinctio, nihil amet! Blanditiis corporis corrupti consectetur. Aliquam cumque inventore fuga illo accusamus error nobis recusandae, voluptas unde quibusdam impedit esse quo? Quam deleniti commodi facere eaque maiores distinctio suscipit vero fugiat, temporibus ab placeat error nisi voluptas ratione, delectus non necessitatibus repudiandae velit accusamus tenetur dolorem voluptatum! Illum expedita, dolore aspernatur repellendus consequatur ullam ea, modi inventore obcaecati, officiis sint non molestias qui voluptatum praesentium. Neque consequatur, saepe dolorem recusandae unde voluptas harum voluptatum facere tempore odio doloribus praesentium est eos excepturi nam sapiente. Similique hic quas, quam sunt aliquid in perspiciatis porro dolores deserunt a ullam optio illum repellendus accusantium dolore?
+                    </div>
+                    <a href="#" class="post-link">
+                        Link to post 3
+                    </a>
+                    <div class="post-author">
+                        by author 3
+                    </div>
+                </div>
+            </article>
+        </section>
+        <section>
+            <h1>
+                News
+            </h1>
+        </section>
+    </main>
+</body>
+</html>
