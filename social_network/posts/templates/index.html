@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>
+        Посты
+    </title>
+</head>
+<body>
+    <h1>
+        Все посты
+    </h1>
+    <div class="post-container">
+        {% for post in posts %}
+            <div class="post-wrapper">
+                <h2>
+                    {{post.title}}
+                </h2>
+                <img src="{{post.image}}" alt="image">
+                <div>
+                    {{post.description}}
+                </div>
+                <div>
+                    Автор: {{post.author}}
+                </div>
+                <a href="/posts/{{post.post_id}}">
+                    Читать пост
+                </a>
+                <div>
+                    <b>
+                        Ключевые слова
+                    </b>
+                    <ul>
+                        {% for keyword in post.keywords %}
+                            <li>
+                                {{keyword}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+body {
+    /* Меняем шрифт */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.post-wrapper {
+    /* Задаем границу постов */
+    border: 1px dashed black;
+    /* Скругляем границу */
+    border-radius: 5px;
+    /* Задаем внешний отступ */
+    margin-top: 10px;
+    /* Задаем внутренний отступ */
+    padding: 10px;
+    /* Задаем фон */
+    background-color: rgba(232, 255, 211, 0.547);
+    /* Указываем максимальные широту/высоту */
+    max-width: fit-content;
+    min-width: 250px;
+    max-height: fit-content;
+
+    /* Центрируем контент */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    max-height: 300px;
+}
+
+.post-container {
+    /* Выстраиваем посты в линию */
+    display: flex;
+    /* Задаем отступы м-ду постами */
+    gap: 10px;
+    /* Задаем перенос постов */
+    flex-wrap: wrap;
+}
