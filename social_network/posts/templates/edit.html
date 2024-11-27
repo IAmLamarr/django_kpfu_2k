@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Изменение поста
+{% endblock %}
+
+{% block main %}
+    <div class="container d-flex flex-column">
+        {% if is_editting %}   
+            <form method="post" action="{% url 'posts:update' post.post_id %}">
+        {% else %}
+            <form method="post" action="{% url 'posts:create' %}">
+        {% endif %}
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title-input" class="form-label">
+                    Название поста
+                </label>
+                <input class="form-control" name="title" required id="title-input" value="{{post.title}}">
+            </div>
+            <div class="mb-3">
+                <label for="description-input" class="form-label">
+                    Описание поста
+                </label>
+                <textarea class="form-control" name="description" required id="description-input" rows="3">{{post.description}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="text-input" class="form-label">
+                    Текст поста
+                </label>
+                <textarea class="form-control" name="text" id="text-input" rows="3">{{post.text}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="author-input" class="form-label">
+                    Автор
+                </label>
+                <input class="form-control" name="author" id="author-input" value="{{post.author}}">
+            </div>
+            <div class="mb-3">
+                <label for="image-input" class="form-label">
+                    Картинка
+                </label>
+                <input class="form-control" name="image" required id="image-input" value="{{post.image}}">
+            </div>
+            <div class="mb-3">
+                <label for="keyword-input" class="form-label">
+                    Ключевые слова
+                </label>
+                <select class="form-select" name="keywords" multiple id="keyword-input">
+                    {% for possible_keyword in possible_keywords %}
+                        <option value="{{possible_keyword}}" {% if possible_keyword in post.keywords %} selected {% endif %}>
+                            {{possible_keyword}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">
+                Отправить
+            </button>
+        </form>
+    </div>
+{% endblock %}
