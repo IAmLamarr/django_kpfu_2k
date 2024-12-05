@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap5 %}
 
 {% block title %}
     Изменение поста
@@ -7,12 +8,13 @@
 {% block main %}
     <div class="container d-flex flex-column">
         {% if is_editting %}   
-            <form method="post" action="{% url 'posts:update' post.post_id %}">
+            <form method="post" action="{% url 'posts:update' post.id %}" enctype="multipart/form-data">
         {% else %}
-            <form method="post" action="{% url 'posts:create' %}">
+            <form method="post" action="{% url 'posts:create' %}" enctype="multipart/form-data">
         {% endif %}
             {% csrf_token %}
-            <div class="mb-3">
+            {% bootstrap_form form %}
+            <!-- <div class="mb-3">
                 <label for="title-input" class="form-label">
                     Название поста
                 </label>
@@ -31,32 +33,27 @@
                 <textarea class="form-control" name="text" id="text-input" rows="3">{{post.text}}</textarea>
             </div>
             <div class="mb-3">
-                <label for="author-input" class="form-label">
-                    Автор
-                </label>
-                <input class="form-control" name="author" id="author-input" value="{{post.author}}">
-            </div>
-            <div class="mb-3">
                 <label for="image-input" class="form-label">
                     Картинка
                 </label>
-                <input class="form-control" name="image" required id="image-input" value="{{post.image}}">
+                <input class="form-control" name="image" type="file" required id="image-input">
             </div>
             <div class="mb-3">
                 <label for="keyword-input" class="form-label">
                     Ключевые слова
                 </label>
                 <select class="form-select" name="keywords" multiple id="keyword-input">
-                    {% for possible_keyword in possible_keywords %}
-                        <option value="{{possible_keyword}}" {% if possible_keyword in post.keywords %} selected {% endif %}>
-                            {{possible_keyword}}
+                    {% for keyword in keywords %}
+                        <option value="{{keyword.id}}" {% if keyword.id in post.keywords %} selected {% endif %}>
+                            {{keyword.name}}
                         </option>
                     {% endfor %}
                 </select>
             </div>
             <button class="btn btn-primary" type="submit">
                 Отправить
-            </button>
+            </button> -->
+            {% bootstrap_button button_type="submit" content="Отправить" %}
         </form>
     </div>
 {% endblock %}

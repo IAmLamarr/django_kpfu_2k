@@ -6,10 +6,16 @@
 
 {% block main %}
     <div class="container d-flex flex-column">
+        <a class="btn btn-primary" href="{% url 'posts:create' %}">
+            Создать пост
+        </a>
+        <a class="btn btn-primary" href="{% url 'posts:create_keyword' %}">
+            Создать ключевое слово
+        </a>
         <div class="d-flex flex-wrap gap-3">
             {% for post in posts %}
                 <div class="card" style="width: 18rem;">
-                    <img src="{{post.image}}" class="card-img-top" alt="..." style="max-height: 400px;">
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="..." style="max-height: 400px;">
                     <div class="card-body">
                         <h5 class="card-title">
                             {{post.title}}
@@ -17,13 +23,13 @@
                         <p class="card-text">
                             {{post.description}}
                         </p>
-                        <a href="{% url 'posts:detail' post.post_id %}" class="btn btn-primary">
+                        <a href="{% url 'posts:detail' post.id %}" class="btn btn-primary">
                             Читать пост
                         </a>
                         <div>
-                            {% for keyword in post.keywords %}
-                                <a href="{% url 'posts:list' %}?q={{keyword}}" class="badge text-bg-primary">
-                                    {{keyword}}
+                            {% for keyword in post.keywords.all %}
+                                <a href="{% url 'posts:list' %}?q={{keyword.name}}" class="badge text-bg-primary">
+                                    {{keyword.name}}
                                 </a>
                             {% endfor %}
                         </div>

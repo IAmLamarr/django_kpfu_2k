@@ -7,7 +7,7 @@
 {% block main %}
     <div class="container d-flex flex-wrap gap-3 flex-column">
         <div class="card" style="width: 18rem;">
-            <img src="{{post.image}}" class="card-img-top" alt="..." style="max-height: 400px;">
+            <img src="{{ post.image.url }}" class="card-img-top" alt="..." style="max-height: 400px;">
             <div class="card-body">
                 <h5 class="card-title">
                     {{post.title}}
@@ -19,14 +19,17 @@
                     {{post.text}}
                 </p>
                 <div>
-                    {% for keyword in post.keywords %}
-                        <a href="{% url 'posts:list' %}?q={{keyword}}" class="badge text-bg-primary">
-                            {{keyword}}
+                    {% for keyword in post.keywords.all %}
+                        <a href="{% url 'posts:list' %}?q={{keyword.name}}" class="badge text-bg-primary">
+                            {{keyword.name}}
                         </a>
                     {% endfor %}
                 </div>
-                <a class="btn btn-primary" href="{% url 'posts:update' post.post_id %}">
+                <a class="btn btn-primary" href="{% url 'posts:update' post.id %}">
                     Редактировать
+                </a>
+                <a class="btn btn-danger" href="{% url 'posts:delete' post.id %}">
+                    Удалить
                 </a>
             </div>
         </div>

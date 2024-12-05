@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Создание ключевого слова
+{% endblock %}
+
+{% block main %}
+<div class="container d-flex flex-column">
+    <form method="post" action="{% url 'posts:create_keyword' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name-input" class="form-label">
+                Ключевое слово
+            </label>
+            <input class="form-control" name="name" required id="name-input">
+        </div>
+        <button class="btn btn-primary" type="submit">
+            Отправить
+        </button>
+    </form>
+</div>
+{% endblock %}
