@@ -11,6 +11,33 @@ from pathlib import Path
 
 # Create your tests here.
 
+class PostTestCase2(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        image_path = "mock_data/dog_picture.jpeg"
+        Post.objects.create(
+            title="Test post",
+            description="Test post description",
+            text="Test post text",
+            image=SimpleUploadedFile(
+                name='test_post_image.jpg',
+                content=open(image_path, 'rb').read(),
+                content_type='image/jpeg'
+            )
+        )
+    
+    def setUp(self):
+        self.c = Client()
+        self.test_post = Post.objects.get(title="Test post")  
+    
+    @classmethod
+    def tearDownClass(cls):
+        path = Path(settings.MEDIA_ROOT, "test_post_image.jpg")
+        os.remove(path)
+    
+    def test_if_simple_routes_is_available_2(self):
+        pass
+
 class PostTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -29,7 +56,7 @@ class PostTestCase(TestCase):
     def setUp(self):
         self.c = Client()
         self.test_post = Post.objects.get(title="Test post")
-    
+
     def test_if_simple_routes_is_available(self):
         urls_aliases_to_test = ["posts:create", "posts:create_keyword", "posts:list"]
         for url_alias in urls_aliases_to_test:
